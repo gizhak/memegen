@@ -1,7 +1,7 @@
 /* BACKGOUND */
 
 * {
-    margin: 10;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -62,7 +62,7 @@ main.main-content {
     background-color: var(--clr-primery-toolbar-panel);
 }
 
-.logo-page {
+/* .logo-page {
     display: grid;
     position: absolute;
-}
+} */
