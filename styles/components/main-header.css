@@ -1,0 +1,8 @@
+.main-header {
+    display: flex;
+    height: 130px;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: rgba(255, 255, 255, 0.1); */
+    /* backdrop-filter: blur(10px); */
+}

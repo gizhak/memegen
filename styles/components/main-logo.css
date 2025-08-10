@@ -1,0 +1,16 @@
+.logo {
+    height: 30px;
+    width: auto;
+}
+
+.logo-page {
+    width: 30%;
+    height: auto;
+    max-width: 500px;
+    /* margin: 50px auto; */
+}
+
+.logo-footer {
+    height: 20px;
+    width: auto;
+}
