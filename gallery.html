@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
-<body>
+<body onload="onInit()">
     <section class="main-content">
         <img src="img/bg2.jpg" alt="background" class="bg">
         <div class="main-page">
@@ -23,27 +23,13 @@
             </header>
 
             <main class="main-content">
-                <div class="box">
-                    <span style="--i:1"><img src="img/meme-imgs/1.jpg" alt=""></span>
-                    <span style="--i:2"><img src="img/meme-imgs/2.jpg" alt=""></span>
-                    <span style="--i:3"><img src="img/meme-imgs/3.jpg" alt=""></span>
-                    <span style="--i:4"><img src="img/meme-imgs/4.jpg" alt=""></span>
-                    <span style="--i:5"><img src="img/meme-imgs/5.jpg" alt=""></span>
-                    <span style="--i:6"><img src="img/meme-imgs/6.jpg" alt=""></span>
-                    <span style="--i:7"><img src="img/meme-imgs/7.jpg" alt=""></span>
-                    <span style="--i:8"><img src="img/meme-imgs/8.jpg" alt=""></span>
-                    <span style="--i:9"><img src="img/meme-imgs/9.jpg" alt=""></span>
-                    <span style="--i:10"><img src="img/meme-imgs/10.jpg" alt=""></span>
-                    <span style="--i:11"><img src="img/meme-imgs/11.jpg" alt=""></span>
-                    <span style="--i:12"><img src="img/meme-imgs/12.jpg" alt=""></span>
-                    <span style="--i:13"><img src="img/meme-imgs/13.jpg" alt=""></span>
-                    <span style="--i:14"><img src="img/meme-imgs/14.jpg" alt=""></span>
-                    <span style="--i:15"><img src="img/meme-imgs/15.jpg" alt=""></span>
-                    <span style="--i:16"><img src="img/meme-imgs/16.jpg" alt=""></span>
-                    <span style="--i:17"><img src="img/meme-imgs/17.jpg" alt=""></span>
-                    <span style="--i:18"><img src="img/meme-imgs/18.jpg" alt=""></span>
+                <div class="box" id="box">
 
                 </div>
+                <div class="zoom-overlay" id="zoomOverlay">
+                    <img class="zoom-image" id="zoomImage" src="">
+                </div>
+
 
             </main>
 
@@ -61,6 +47,10 @@
         </div>
 
     </section>
+
+    <script src="js/img.service.js"></script>
+    <script src="js/img.controller.js"></script>
+    <script src="js/helpers/estilos.js"></script>
 
 </body>
 

@@ -24,6 +24,9 @@ main.main-content {
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 130px - 100px);
+
+    padding: 40px 20px;
+
 }
 
 .bg {
@@ -60,6 +63,53 @@ main.main-content {
 .main-layout>.full {
     grid-column: 1/-1;
     background-color: var(--clr-primery-toolbar-panel);
+}
+
+
+
+
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+small {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.box {
+    margin: 0 auto;
+    z-index: 10;
+}
+
+main.main-content {
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    main.main-content {
+        padding: 20px 10px;
+        min-height: calc(100vh - 100px - 80px);
+    }
+}
+
+@media (pointer: coarse) {
+    .box {
+        touch-action: pan-y;
+    }
 }
 
 /* .logo-page {
