@@ -51,6 +51,7 @@ function onSelectImg(elImgs) {
 
     var elImg = elImgs.querySelector('img')
 
+
     var imgSrc = elImg.src
     var imgClass = elImgs.getAttribute('data-image')
     var imgAlt = elImg.alt
@@ -65,13 +66,13 @@ function onSelectImg(elImgs) {
     console.log(elImgSelect)
 
     var selectedImageData = {
-        id: imgSrc,
-        src: imgClass,
+        id: imgClass,
+        src: imgSrc,
         alt: imgAlt,
-        timestemp: Date.now
+        timestamp: Date.now()
     }
 
-    localStorage.setItem('selectedMeme', JSON.stringify(selectedImageData))
+    saveToStorage('selectedImage', selectedImageData)
     console.log('Saved to localStorage:', selectedImageData)
 
     window.location.href = 'editor.html'

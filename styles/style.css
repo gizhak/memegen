@@ -6,6 +6,9 @@
 @import url('./basics/base.css');
 @import url('./basics/helpers.css');
 @import url('./basics/layout.css');
+@import url('./basics/main-layout.css');
+@import url('./basics/edite-layout.css');
+
 
 
 /* COMPONENTS */
