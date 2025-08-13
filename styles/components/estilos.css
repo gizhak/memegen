@@ -17,7 +17,7 @@ body {
     width: 200px;
     height: 200px;
     transform-style: preserve-3d;
-    animation: animate 40s linear infinite;
+    /* animation: animate 40s linear infinite; */
     cursor: grab;
     user-select: none;
 }
@@ -58,4 +58,13 @@ body {
     object-fit: cover;
 
     pointer-events: none;
+}
+
+
+.box.dragging .image-container:hover {
+    transform: none !important;
+}
+
+.box.dragging .image-container:hover .meme-image {
+    box-shadow: none !important;
 }

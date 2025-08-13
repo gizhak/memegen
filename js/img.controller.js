@@ -27,7 +27,10 @@ function renderImg() {
 
     var strHtml = images.map(function (img, index) {
         return `
-            <span style="--i:${index + 1}" class="image-container" onclick="onSelectImg(this)" data-image="${img.id}">
+            <span style="--i:${index + 1}" class="image-container" 
+            ondblclick="onSelectImg(this)" 
+            ontouchend="handleImageTap(this)" 
+            data-image="${img.id}">
                 <img src="${img.url}" alt="Meme ${img.id}" class="meme-image">
             </span>
         `
@@ -38,6 +41,8 @@ function renderImg() {
     elImgs.innerHTML = strHtml
 
     console.log('Images rendered successfully')
+
+    initCarousel()
 
 }
 
