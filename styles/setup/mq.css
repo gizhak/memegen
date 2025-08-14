@@ -403,3 +403,97 @@
         margin: 5px auto;
     }
 }
+
+
+/* ===== EDITOR PAGE RESPONSIVE ===== */
+
+/* TABLET */
+@media (max-width: 1024px) {
+    .editor-page .main-continer {
+        width: 90%;
+        max-width: 700px;
+        column-gap: 15px;
+        padding: 15px;
+    }
+
+    .editor-page canvas {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+/* MOBILE LARGE */
+@media (max-width: 768px) {
+    .editor-page .main-continer {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        width: 95%;
+        max-width: 500px;
+        row-gap: 20px;
+        padding: 15px;
+    }
+
+    .editor-page canvas {
+        width: 250px;
+        height: 250px;
+    }
+
+    .editor-page .main-setting {
+        gap: 10px;
+    }
+
+    .editor-page .main-setting button {
+        padding: 12px 16px;
+        font-size: 14px;
+        min-height: 44px;
+    }
+
+    .editor-page .main-btn-continer,
+    .editor-page .edit-btn-continer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}
+
+/* MOBILE MEDIUM */
+@media (max-width: 480px) {
+    .editor-page .main-continer {
+        width: 98%;
+        padding: 10px;
+        row-gap: 15px;
+    }
+
+    .editor-page canvas {
+        width: 200px;
+        height: 200px;
+    }
+
+    .editor-page .main-setting {
+        gap: 8px;
+        padding: 5px;
+    }
+
+    .editor-page .main-setting button {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .editor-page .main-setting input {
+        padding: 10px;
+        font-size: 16px;
+    }
+}
+
+/* MOBILE SMALL */
+@media (max-width: 360px) {
+    .editor-page canvas {
+        width: 180px;
+        height: 180px;
+    }
+
+    .editor-page .main-setting button {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+}

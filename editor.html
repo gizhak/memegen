@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
     <link rel="stylesheet" href="styles/style.css">
+    <script src="https://kit.fontawesome.com/a4146c86d4.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="onInitEditor()">
+<body class="editor-page" onload="onInitEditor()">
     <section class="main-content">
         <img src="img/bg2.jpg" alt="background" class="bg">
         <div class="main-page">
@@ -29,6 +30,53 @@
                         <canvas width="400" height="400"></canvas>
                     </div>
                     <div class="main-setting">
+                        <label for="text-line">Text line</label>
+                        <input type="text" id="text-line" required name="text-line" />
+
+                        <div class="main-btn-continer">
+                            <button class="btnUp" onclick="onBtnUp()">
+                                <i class="fa-solid fa-circle-up"></i>
+                            </button>
+                            <button class="btnDown" onclick="onBtnDown()">
+                                <i class="fa-solid fa-circle-down"></i>
+                            </button>
+
+                            <button class="btnAddTextLine" onclick="onAddTextLine()">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <button class="btnDelTextLine" onclick="onDelTextLine()">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+
+                        <div class="edit-btn-continer">
+                            <button class="btnIncreaseFontSize" onclick="onBtnIncreaseFontSize()">
+                                <i class="fa-solid fa-font"></i>
+                            </button>
+                            <button class="btnDecreaseFontSize" onclick="onBtnDecreaseFontSize()">Decrease
+                                <i class="fa-solid fa-font"></i>
+                            </button>
+
+                            <button class="btnAlignLeft" onclick="onBtnAlignLeft()">
+                                <i class="fa-solid fa-align-left"></i>
+                            </button>
+                            <button class="btnAlignCenter" onclick="onBtnAlignCenter()">
+                                <i class="fa-solid fa-align-center"></i>
+                            </button>
+                            <button class="btnAlignRight" onclick="onBtnAlignRight()">
+                                <i class="fa-solid fa-align-right"></i>
+                            </button>
+
+                            <button class="btnFontFamilySelector" onclick="onBtnFontFamilySelector()">Font Family
+                                Selector</button>
+                            <button class="btnColorPicker" onclick="onBtnColorPicker()">
+                                <i class="fa-solid fa-palette"></i>
+                            </button>
+                        </div>
+
+                        <div class="icons-continer">
+                            <button type="menu" onclick="onBtnIcons()">icons</button>
+                        </div>
 
                     </div>
                 </div>
