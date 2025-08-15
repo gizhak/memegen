@@ -39,17 +39,25 @@ canvas {
 .editor-page .main-setting {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
     padding: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .editor-page .main-setting button {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    text-align: center;
+
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
-    margin-bottom: 10px;
-    padding: 10px 15px;
+    margin-bottom: 2px;
+    padding: 8px 10px;
     color: white;
     font-weight: 500;
     cursor: pointer;
@@ -71,10 +79,210 @@ canvas {
     padding: 12px;
     color: white;
     font-size: 14px;
+    margin-bottom: 10px;
 }
 
 .editor-page .main-setting label {
     color: white;
     font-weight: 500;
     margin-bottom: 5px;
+}
+
+.editor-page button {
+    min-width: 50px;
+}
+
+.editor-page i {
+    justify-items: center;
+    align-items: center;
+}
+
+
+.editor-page .main-btn-continer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 45px;
+    margin-bottom: 10px;
+}
+
+.editor-page .main-btn-continer i {
+    font-size: 20px;
+}
+
+.editor-page .edit-btn-continer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.editor-page .btnIncreaseFontSize i,
+.editor-page .btnDecreaseFontSize i {
+    font-size: 16px;
+}
+
+.editor-page .btnIncreaseFontSize {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.editor-page .btnDecreaseFontSize {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.editor-page .btnAlignLeft {
+    grid-row: 1;
+    grid-column: 3;
+}
+
+.editor-page .btnAlignCenter {
+    grid-row: 1;
+    grid-column: 4;
+}
+
+.editor-page .btnAlignRight {
+    grid-row: 1;
+    grid-column: 5;
+}
+
+.editor-page .btnIncreaseFontSize i.increase {
+    font-size: 20px;
+}
+
+.editor-page .btnDecreaseFontSize i.decrease {
+    font-size: 12px;
+}
+
+.editor-page .btnFontFamilySelector {
+    grid-row: 2;
+    grid-column: 1 / 3;
+
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 8px 10px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 10px;
+    min-height: 44px;
+    max-height: 44px;
+    height: 44px;
+}
+
+.editor-page .btnFontFamilySelector option {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+
+
+.editor-page .btnUnderline {
+    grid-row: 2;
+    grid-column: 3;
+}
+
+.editor-page .btnColorPicker {
+    grid-row: 2;
+    grid-column: 4;
+}
+
+
+.editor-page .emoji-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    gap: 3px;
+    margin-bottom: 10px;
+}
+
+.editor-page .emoji-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.editor-page .emoji-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+}
+
+.editor-page .emoji-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.editor-page .emoji-nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.editor-page .share-down {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+
+}
+
+.editor-page .share-btn,
+.editor-page .download-btn {
+    flex: 1;
+}
+
+.editor-page .btnShare,
+.editor-page .btnDownload {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 12px;
+    min-height: 44px;
+    margin-bottom: 0;
+}
+
+.editor-page .btnShare:hover,
+.editor-page .btnDownload:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }

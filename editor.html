@@ -51,10 +51,10 @@
 
                         <div class="edit-btn-continer">
                             <button class="btnIncreaseFontSize" onclick="onBtnIncreaseFontSize()">
-                                <i class="fa-solid fa-font"></i>
+                                <i class="fa-solid fa-font increase"></i>
                             </button>
-                            <button class="btnDecreaseFontSize" onclick="onBtnDecreaseFontSize()">Decrease
-                                <i class="fa-solid fa-font"></i>
+                            <button class="btnDecreaseFontSize" onclick="onBtnDecreaseFontSize()">
+                                <i class="fa-solid fa-font decrease"></i>
                             </button>
 
                             <button class="btnAlignLeft" onclick="onBtnAlignLeft()">
@@ -67,17 +67,51 @@
                                 <i class="fa-solid fa-align-right"></i>
                             </button>
 
-                            <button class="btnFontFamilySelector" onclick="onBtnFontFamilySelector()">Font Family
-                                Selector</button>
+                            <select class="btnFontFamilySelector" onchange="onBtnFontFamilySelector(this.value)">
+                                <option value="Impact">IMPACT</option>
+                                <option value="Arial">ARIAL</option>
+                                <option value="Times New Roman">TIMES</option>
+                                <option value="Comic Sans MS">COMIC SANS</option>
+                                <option value="Helvetica">HELVETICA</option>
+                                <option value="Georgia">GEORGIA</option>
+                            </select>
+                            <button class="btnUnderline" onclick="onBtnUnderline()">
+                                <i class="fa-solid fa-underline"></i>
+                            </button>
                             <button class="btnColorPicker" onclick="onBtnColorPicker()">
                                 <i class="fa-solid fa-palette"></i>
                             </button>
                         </div>
+                        <div class="emoji-carousel">
+                            <button class="emoji-nav-btn" onclick="onPrevEmoji()">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
 
-                        <div class="icons-continer">
-                            <button type="menu" onclick="onBtnIcons()">icons</button>
+                            <div class="emoji-container">
+                                <button class="emoji-btn" onclick="onAddEmoji('😀')">😀</button>
+                                <button class="emoji-btn" onclick="onAddEmoji('😎')">😎</button>
+                                <button class="emoji-btn" onclick="onAddEmoji('😍')">😍</button>
+                                <button class="emoji-btn" onclick="onAddEmoji('🤔')">🤔</button>
+                            </div>
+
+                            <button class="emoji-nav-btn" onclick="onNextEmoji()">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
                         </div>
-
+                        <div class="share-down">
+                            <div class="share-btn">
+                                <button class="btnShare" onclick="onBtnShare()">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                    Share
+                                </button>
+                            </div>
+                            <div class="download-btn">
+                                <button class="btnDownload" onclick="onBtnDownload()">
+                                    <i class="fa-solid fa-download"></i>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
