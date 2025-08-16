@@ -44,6 +44,13 @@ canvas {
     /* margin-bottom: 10px; */
 }
 
+.canvas-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+}
+
 .editor-page .main-setting button {
 
     display: flex;

@@ -27,12 +27,15 @@
 
                 <div class="main-continer">
                     <div class="canvas-container">
-                        <canvas width="400" height="400"></canvas>
+                        <canvas onclick="drawText(event)" width="400" height="400"></canvas>
+                        <!-- <input class="canvas-text" type="text" placeholder="Type something" /> -->
                     </div>
                     <div class="main-setting">
-                        <label for="text-line">Text line</label>
-                        <input type="text" id="text-line" required name="text-line" />
-
+                        <!-- <label for="text-line">Text line</label>
+                        <input class="canvas-text" type="text" id="text-line" required name="text-line" /> -->
+                        <input class="canvas-text" type="text" placeholder="Type something and click enter" />
+                        <!-- <input type="color" id="colorPicker" style="display: none;"
+                            onchange="onColorChange(this.value)"> -->
                         <div class="main-btn-continer">
                             <button class="btnUp" onclick="onBtnUp()">
                                 <i class="fa-solid fa-circle-up"></i>
@@ -78,9 +81,14 @@
                             <button class="btnUnderline" onclick="onBtnUnderline()">
                                 <i class="fa-solid fa-underline"></i>
                             </button>
-                            <button class="btnColorPicker" onclick="onBtnColorPicker()">
-                                <i class="fa-solid fa-palette"></i>
-                            </button>
+                            <div style="position: relative; display: inline-block;">
+                                <button class="btnColorPicker" onclick="onBtnColorPicker()">
+                                    <i class="fa-solid fa-palette"></i>
+                                </button>
+                                <input type="color" id="colorPicker"
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;"
+                                    onchange="onColorChange(this.value)">
+                            </div>
                         </div>
                         <div class="emoji-carousel">
                             <button class="emoji-nav-btn" onclick="onPrevEmoji()">
@@ -138,8 +146,21 @@
         </div>
 
     </section>
-    <script src="js/helpers/imge.storage.service.js"></script>
-    <script src="js/edite.controller.js"></script>
+    <!-- Helper Scripts (no dependencies) -->
+    <script src="js/helpers/util.helper.js"></script>
+    <script src="js/helpers/dom.helper.js"></script>
+    <script src="js/helpers/image.storage.service.js"></script>
+
+    <!-- Model Scripts -->
+    <script src="js/models/edit.model.js"></script>
+
+    <!-- Service Scripts (depend on model) -->
+    <script src="js/services/canvas.service.js"></script>
+    <script src="js/services/text.service.js"></script>
+    <script src="js/services/emoji.service.js"></script>
+
+    <!-- Controller Scripts (depend on everything above) -->
+    <script src="js/controllers/edit.controller.js"></script>
 
 </body>
 

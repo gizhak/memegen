@@ -1,0 +1,415 @@
+'use strict'
+
+// ========== GLOBAL VARIABLES ==========
+var gTexts = [
+    { txt: '', x: 200, y: 60, fontSize: 40, align: 'center', fontFamily: 'Impact', underline: false, color: 'white' },
+    { txt: '', x: 200, y: 340, fontSize: 40, align: 'center', fontFamily: 'Impact', underline: false, color: 'white' },
+    { txt: '', x: 200, y: 200, fontSize: 40, align: 'center', fontFamily: 'Impact', underline: false, color: 'white' }
+]
+
+var gEmojis = []
+var gCurrentTextIdx = 0
+var gSelectedTextIdx = 0
+var gSelectedEmojiIdx = -1
+var gDragging = false
+var canvas
+
+// ========== INITIALIZATION FUNCTIONS ==========
+function onInitEditor() {
+    console.log('Editor initialized')
+    loadSelectedImg()
+
+    setTimeout(function () {
+        initEmojiDragListeners()
+    }, 100)
+}
+
+function loadSelectedImg() {
+    var imgData = loadFromStorage('selectedImage')
+    console.log(imgData)
+
+    if (imgData) {
+        console.log('Loaded image data:', imgData)
+        displayImg(imgData)
+    } else {
+        console.log('No meme selected')
+    }
+}
+
+function displayImg(imgData) {
+    console.log('Displaying Image URL:', imgData.src)
+
+    canvas = document.querySelector('canvas')
+    console.log(canvas)
+    var ctx = canvas.getContext('2d')
+
+    var img = new Image()
+    img.onload = function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+        console.log('Image loaded to canvas')
+    }
+
+    img.onerror = function () {
+        console.error('Failed to load image:', imgData.src)
+    }
+
+    img.src = imgData.src
+}
+
+// ========== MAIN RENDER FUNCTION ==========
+function renderCanvas() {
+    var imgData = loadFromStorage('selectedImage')
+    if (imgData) {
+        var img = new Image()
+        img.onload = function () {
+            var ctx = canvas.getContext('2d')
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+            // ציור את כל הטקסטים
+            renderAllTexts()
+
+            // ציור את כל הסטיקרים
+            renderAllEmojis()
+        }
+        img.src = imgData.src
+    }
+}
+
+// ========== TEXT FUNCTIONS ==========
+function drawText({ offsetX, offsetY }) {
+    canvas = document.querySelector('canvas')
+    var gCtx = canvas.getContext('2d')
+
+    const elTextInput = document.querySelector('.canvas-text')
+    const text = elTextInput.value
+
+    if (!text) return
+
+    let closestIdx = 0
+    let minDistance = Math.abs(offsetY - gTexts[0].y)
+
+    for (let i = 1; i < gTexts.length; i++) {
+        let distance = Math.abs(offsetY - gTexts[i].y)
+        if (distance < minDistance) {
+            minDistance = distance
+            closestIdx = i
+        }
+    }
+
+    gTexts[closestIdx].txt = text
+
+    gCtx.font = '40px Impact'
+    gCtx.textAlign = 'center'
+    gCtx.textBaseline = 'middle'
+    gCtx.fillStyle = 'white'
+    gCtx.strokeStyle = 'black'
+    gCtx.lineWidth = 2
+
+    gCtx.fillText(text, gTexts[closestIdx].x, gTexts[closestIdx].y)
+    gCtx.strokeText(text, gTexts[closestIdx].x, gTexts[closestIdx].y)
+
+    elTextInput.value = ''
+    console.log('Text added to position:', closestIdx, 'at Y:', gTexts[closestIdx].y)
+}
+
+function onAddTextLine() {
+    const elTextInput = document.querySelector('.canvas-text')
+    const text = elTextInput.value.trim()
+
+    if (!text) {
+        alert('Please type some text first!')
+        return
+    }
+
+    gTexts[gCurrentTextIdx].txt = text
+    renderSingleText(gTexts[gCurrentTextIdx])
+    gCurrentTextIdx = (gCurrentTextIdx + 1) % 3
+    elTextInput.value = ''
+
+    console.log('Text added! Next position:', gCurrentTextIdx)
+}
+
+function renderAllTexts() {
+    for (let i = 0; i < gTexts.length; i++) {
+        if (gTexts[i].txt) {
+            renderSingleText(gTexts[i], i === gSelectedTextIdx)
+        }
+    }
+}
+
+function renderSingleText(textObj, isSelected = false) {
+    var gCtx = canvas.getContext('2d')
+
+    gCtx.font = textObj.fontSize + 'px ' + textObj.fontFamily
+    gCtx.textAlign = textObj.align
+    gCtx.textBaseline = 'middle'
+
+    if (isSelected) {
+        gCtx.fillStyle = 'yellow'
+        gCtx.strokeStyle = 'red'
+        gCtx.lineWidth = 3
+    } else {
+        gCtx.fillStyle = textObj.color
+        gCtx.strokeStyle = 'black'
+        gCtx.lineWidth = 2
+    }
+
+    gCtx.fillText(textObj.txt, textObj.x, textObj.y)
+    gCtx.strokeText(textObj.txt, textObj.x, textObj.y)
+
+    if (textObj.underline) {
+        const textWidth = gCtx.measureText(textObj.txt).width
+        let startX, endX
+
+        if (textObj.align === 'center') {
+            startX = textObj.x - textWidth / 2
+            endX = textObj.x + textWidth / 2
+        } else if (textObj.align === 'left') {
+            startX = textObj.x
+            endX = textObj.x + textWidth
+        } else {
+            startX = textObj.x - textWidth
+            endX = textObj.x
+        }
+
+        const underlineY = textObj.y + textObj.fontSize / 3
+
+        gCtx.beginPath()
+        gCtx.moveTo(startX, underlineY)
+        gCtx.lineTo(endX, underlineY)
+        gCtx.lineWidth = 2
+        gCtx.strokeStyle = isSelected ? 'red' : textObj.color
+        gCtx.stroke()
+    }
+}
+
+// ========== TEXT CONTROL FUNCTIONS ==========
+function onBtnUp() {
+    gSelectedTextIdx = (gSelectedTextIdx - 1 + 3) % 3
+    selectText()
+    console.log('Selected text:', gSelectedTextIdx)
+}
+
+function onBtnDown() {
+    gSelectedTextIdx = (gSelectedTextIdx + 1) % 3
+    selectText()
+    console.log('Selected text:', gSelectedTextIdx)
+}
+
+function selectText() {
+    const elTextInput = document.querySelector('.canvas-text')
+    elTextInput.value = gTexts[gSelectedTextIdx].txt
+    renderCanvas()
+}
+
+function onDelTextLine() {
+    gTexts[gSelectedTextIdx].txt = ''
+    const elTextInput = document.querySelector('.canvas-text')
+    elTextInput.value = ''
+    renderCanvas()
+    console.log('Deleted text at position:', gSelectedTextIdx)
+}
+
+function onBtnIncreaseFontSize() {
+    if (gTexts[gSelectedTextIdx].txt) {
+        gTexts[gSelectedTextIdx].fontSize += 5
+        if (gTexts[gSelectedTextIdx].fontSize > 80) {
+            gTexts[gSelectedTextIdx].fontSize = 80
+        }
+        renderCanvas()
+        console.log('Font size increased to:', gTexts[gSelectedTextIdx].fontSize)
+    }
+}
+
+function onBtnDecreaseFontSize() {
+    if (gTexts[gSelectedTextIdx].txt) {
+        gTexts[gSelectedTextIdx].fontSize -= 5
+        if (gTexts[gSelectedTextIdx].fontSize < 20) {
+            gTexts[gSelectedTextIdx].fontSize = 20
+        }
+        renderCanvas()
+        console.log('Font size decreased to:', gTexts[gSelectedTextIdx].fontSize)
+    }
+}
+
+function onBtnAlignLeft() {
+    if (gTexts[gSelectedTextIdx].txt) {
+        gTexts[gSelectedTextIdx].align = 'left'
+        gTexts[gSelectedTextIdx].x = 50
+        renderCanvas()
+        console.log('Text aligned left')
+    }
+}
+
+function onBtnAlignCenter() {
+    if (gTexts[gSelectedTextIdx].txt) {
+        gTexts[gSelectedTextIdx].align = 'center'
+        gTexts[gSelectedTextIdx].x = 200
+        renderCanvas()
+        console.log('Text aligned center')
+    }
+}
+
+function onBtnAlignRight() {
+    if (gTexts[gSelectedTextIdx].txt) {
+        gTexts[gSelectedTextIdx].align = 'right'
+        gTexts[gSelectedTextIdx].x = 350
+        renderCanvas()
+        console.log('Text aligned right')
+    }
+}
+
+function onBtnFontFamilySelector(fontFamily) {
+    if (gTexts[gSelectedTextIdx].txt) {
+        gTexts[gSelectedTextIdx].fontFamily = fontFamily
+        renderCanvas()
+        console.log('Font changed to:', fontFamily)
+    }
+}
+
+function onBtnUnderline() {
+    if (gTexts[gSelectedTextIdx].txt) {
+        gTexts[gSelectedTextIdx].underline = !gTexts[gSelectedTextIdx].underline
+        renderCanvas()
+        console.log('Underline toggled:', gTexts[gSelectedTextIdx].underline)
+    }
+}
+
+function onBtnColorPicker() {
+    const colorPicker = document.getElementById('colorPicker')
+    if (colorPicker) {
+        colorPicker.click()
+    }
+}
+
+function onColorChange(selectedColor) {
+    if (gTexts[gSelectedTextIdx].txt) {
+        gTexts[gSelectedTextIdx].color = selectedColor
+        renderCanvas()
+        console.log('Color changed successfully!')
+    }
+}
+
+// ========== EMOJI FUNCTIONS ==========
+function onAddEmoji(emoji) {
+    console.log('Adding emoji:', emoji)
+
+    const newEmoji = {
+        emoji: emoji,
+        x: 200,
+        y: 200,
+        size: 40
+    }
+
+    gEmojis.push(newEmoji)
+    renderAllEmojis()
+
+    console.log('Emoji added! Total emojis:', gEmojis.length)
+}
+
+function renderAllEmojis() {
+    var ctx = canvas.getContext('2d')
+    for (let i = 0; i < gEmojis.length; i++) {
+        renderSingleEmoji(gEmojis[i])
+    }
+}
+
+function renderSingleEmoji(emojiObj) {
+    var ctx = canvas.getContext('2d')
+    ctx.font = emojiObj.size + 'px Arial'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(emojiObj.emoji, emojiObj.x, emojiObj.y)
+}
+
+// ========== EMOJI DRAG FUNCTIONS ==========
+function isPointInEmoji(x, y, emojiObj) {
+    const halfSize = emojiObj.size / 2
+    return x >= emojiObj.x - halfSize && x <= emojiObj.x + halfSize &&
+        y >= emojiObj.y - halfSize && y <= emojiObj.y + halfSize
+}
+
+function findEmojiAtPosition(x, y) {
+    for (let i = gEmojis.length - 1; i >= 0; i--) {
+        if (isPointInEmoji(x, y, gEmojis[i])) {
+            return i
+        }
+    }
+    return -1
+}
+
+function onMouseDown(event) {
+    const rect = canvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+
+    const emojiIdx = findEmojiAtPosition(x, y)
+    if (emojiIdx !== -1) {
+        gSelectedEmojiIdx = emojiIdx
+        gDragging = true
+        console.log('Started dragging emoji:', emojiIdx)
+    }
+}
+
+function onMouseMove(event) {
+    if (!gDragging || gSelectedEmojiIdx === -1) return
+
+    const rect = canvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+
+    gEmojis[gSelectedEmojiIdx].x = x
+    gEmojis[gSelectedEmojiIdx].y = y
+
+    renderCanvas()
+}
+
+function onMouseUp(event) {
+    if (gDragging) {
+        gDragging = false
+        gSelectedEmojiIdx = -1
+        console.log('Stopped dragging emoji')
+    }
+}
+
+function onDoubleClick(event) {
+    const rect = canvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+
+    const emojiIdx = findEmojiAtPosition(x, y)
+    if (emojiIdx !== -1) {
+        gEmojis.splice(emojiIdx, 1)
+        gSelectedEmojiIdx = -1
+        gDragging = false
+        renderCanvas()
+        console.log('Deleted emoji at position:', emojiIdx)
+    }
+}
+
+function initEmojiDragListeners() {
+    if (!canvas) return
+
+    canvas.addEventListener('mousedown', onMouseDown)
+    canvas.addEventListener('mousemove', onMouseMove)
+    canvas.addEventListener('mouseup', onMouseUp)
+    canvas.addEventListener('mouseleave', onMouseUp)
+    canvas.addEventListener('dblclick', onDoubleClick)
+
+    console.log('Emoji drag listeners initialized')
+}
+
+// ========== UTILITY FUNCTIONS ==========
+function onBtnDownload() {
+    const link = document.createElement('a')
+    link.download = 'Meme_Image.png'
+    link.href = canvas.toDataURL('image/png')
+    link.click()
+}
+
+function onBtnShare() {
+    alert('Share not supported yet!')
+    console.log('Todo')
+}

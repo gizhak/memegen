@@ -1,0 +1,26 @@
+'use strict'
+
+var gElCanvas
+var gCtx
+
+function onInitCanvas() {
+    gElCanvas = document.querySelector('canvas')
+    gCtx = gElCanvas.getContext('2d')
+    // resizeCanvas()
+    // window.addEventListener('resize', resizeCanvas)
+
+    // drawImg1()
+    // drawImg2()
+    // drawImg3()
+    downloadCanvas()
+}
+
+
+function downloadCanvas(elLink) {
+    const dataUrl = gElCanvas.toDataURL()
+    console.log('dataUrl:', dataUrl)
+
+    elLink.href = dataUrl
+    // Set a name for the downloaded file
+    elLink.download = 'my-img'
+}
