@@ -247,9 +247,31 @@ function onBtnDownload() {
     console.log('Edit downloaded')
 }
 
+// function onUploadImg(url) {
+//     // console.log('url:', url)
+//     window.open(`https://www.facebook.com/`)
+// }
+
 function onBtnShare() {
-    alert('Share functionality not implemented yet!')
-    console.log('Share button clicked')
+
+    downloadCanvas('My_Meme.png')
+
+    const msg = document.createElement('div')
+    msg.textContent = 'Downloaded! Now you can share it anywhere!'
+    msg.style.cssText = `
+        position:fixed;
+        top:15%;
+        left:50%;
+        transform:translateX(-50%);
+        background:#2196F3;
+        color:white;
+        padding:15px;
+        border-radius:8px;
+        z-index:1000;
+    `
+    document.body.appendChild(msg)
+
+    setTimeout(() => document.body.removeChild(msg), 3000)
 }
 
 // ========== DEBUG FUNCTIONS ==========

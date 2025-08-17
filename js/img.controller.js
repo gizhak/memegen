@@ -75,6 +75,21 @@ function onSelectImg(elImgs) {
     saveToStorage('selectedImage', selectedImageData)
     console.log('Saved to localStorage:', selectedImageData)
 
-    window.location.href = 'editor.html'
+    const msg = document.createElement('div')
+    msg.textContent = 'Image Selected!'
+    // msg.style.cssText = 'position:fixed;top:20px;right:20px;background:#4CAF50;color:white;padding:15px;border-radius:8px;z-index:1000'
+    msg.style.cssText = `
+    position:fixed;
+    top:15%;
+    right:40%;
+    background:#4CAF50;
+    color:white;
+    padding:15px;
+    border-radius:8px;
+    z-index:1000;
+    `
+    document.body.appendChild(msg)
+
+    setTimeout(() => window.location.href = 'editor.html', 1000)
 
 }

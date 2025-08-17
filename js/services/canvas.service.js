@@ -70,10 +70,16 @@ function renderText(textObj, isSelected = false) {
 
     // Set colors based on selection
     if (isSelected) {
-        ctx.fillStyle = 'yellow'
-        ctx.strokeStyle = 'red'
-        ctx.lineWidth = 3
+        // Add glowing effect for selected text
+        ctx.shadowColor = 'rgba(246, 255, 0, 1)'
+        ctx.shadowBlur = 2
+        ctx.fillStyle = textObj.color
+        ctx.strokeStyle = 'black'
+        ctx.lineWidth = 0
     } else {
+        // Remove shadow for non-selected text
+        ctx.shadowColor = 'transparent'
+        ctx.shadowBlur = 0
         ctx.fillStyle = textObj.color
         ctx.strokeStyle = 'black'
         ctx.lineWidth = 2
@@ -82,6 +88,10 @@ function renderText(textObj, isSelected = false) {
     // Render text
     ctx.fillText(textObj.txt, textObj.x, textObj.y)
     ctx.strokeText(textObj.txt, textObj.x, textObj.y)
+
+    // Reset shadow after rendering
+    ctx.shadowColor = 'transparent'
+    ctx.shadowBlur = 0
 
     // Render underline if needed
     if (textObj.underline) {
@@ -113,13 +123,13 @@ function renderTextUnderline(textObj, isSelected = false) {
             endX = textObj.x + textWidth / 2
     }
 
-    const underlineY = textObj.y + textObj.fontSize / 3
+    const underlineY = textObj.y + textObj.fontSize / 2
 
     ctx.beginPath()
     ctx.moveTo(startX, underlineY)
     ctx.lineTo(endX, underlineY)
-    ctx.lineWidth = 2
-    ctx.strokeStyle = isSelected ? 'red' : textObj.color
+    ctx.lineWidth = 3
+    ctx.strokeStyle = isSelected ? 'white' : textObj.color
     ctx.stroke()
 }
 
