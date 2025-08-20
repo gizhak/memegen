@@ -410,10 +410,10 @@
 /* TABLET */
 @media (max-width: 1024px) {
     .editor-page .main-continer {
-        width: 90%;
-        max-width: 700px;
-        column-gap: 15px;
-        padding: 15px;
+        width: 95%;
+        max-width: 718px;
+        column-gap: 1px;
+        padding: 8px;
     }
 
     .editor-page canvas {
