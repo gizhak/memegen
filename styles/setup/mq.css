@@ -434,6 +434,8 @@
     }
 
     .editor-page canvas {
+        display: block;
+        margin: 0 auto;
         width: 250px;
         height: 250px;
     }
@@ -459,7 +461,7 @@
 /* MOBILE MEDIUM */
 @media (max-width: 480px) {
     .editor-page .main-continer {
-        width: 98%;
+        width: 105%;
         padding: 10px;
         row-gap: 15px;
     }
