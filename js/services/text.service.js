@@ -2,6 +2,11 @@
 
 // ========== TEXT SERVICE ==========
 
+const gTextService = {
+    isDragging: false,
+    dragOffset: { x: 0, y: 0 }
+}
+
 function addTextToEdit(edit, text) {
     if (!text.trim()) {
         return false
@@ -133,6 +138,26 @@ function getTextAtPosition(edit, x, y, tolerance = 20) {
     return -1
 }
 
+
+function startTextDrag(edit, x, y) {
+    const textIdx = getTextAtPosition(edit, x, y)
+    console.log(textIdx)
+    if (textIdx === -1) {
+        return false
+    }
+
+    edit.selectedTextIdx = textIdx
+    edit.isDragging = true
+    gTextService.isDragging = true
+
+    const text = edit.texts[textIdx]
+    gTextService.dragOffset.x = x - text.x
+    gTextService.dragOffset.y = y - text.y
+
+    console.log('Started dragging text:', textIdx)
+    return true
+}
+
 function moveTextToNextPosition(edit) {
     edit.selectedTextIdx = (edit.selectedTextIdx + 1) % edit.texts.length
     return edit.selectedTextIdx
@@ -160,4 +185,26 @@ function getTextStats(edit) {
         selectedIdx: edit.selectedTextIdx,
         currentIdx: edit.currentTextIdx
     }
+}
+
+// DRAG_TEXT
+
+function updateTextDrag(edit, x, y) {
+    if (!edit.isDragging || !gTextService.isDragging) return false
+
+    const selectedText = getSelectedText(edit)
+    selectedText.x = x - gTextService.dragOffset.x
+    selectedText.y = y - gTextService.dragOffset.y
+
+
+    selectedText.x = Math.max(50, Math.min(350, selectedText.x))
+    selectedText.y = Math.max(30, Math.min(370, selectedText.y))
+
+    return true
+}
+
+function stopTextDrag(edit) {
+    edit.isDragging = false
+    gTextService.isDragging = false
+    return true
 }

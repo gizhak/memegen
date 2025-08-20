@@ -60,9 +60,26 @@ function initEventListeners() {
     console.log('Event listeners initialized')
 }
 
+function updateCanvasCursor(isDragging) {
+    const canvas = getCanvas()
+    if (canvas) {
+        if (isDragging) {
+            canvas.classList.add('dragging')
+        } else {
+            canvas.classList.remove('dragging')
+        }
+    }
+}
+
 // ========== MOUSE EVENTS ==========
 function onMouseDown(event) {
     const pos = getCanvasPosition(event)
+
+
+    if (startTextDrag(gEdit, pos.x, pos.y)) {
+        renderEdit(gEdit)
+        return
+    }
 
     if (startEmojiDrag(gEdit, pos.x, pos.y)) {
         renderEdit(gEdit)
@@ -74,14 +91,24 @@ function onMouseMove(event) {
 
     const pos = getCanvasPosition(event)
 
+
+    if (updateTextDrag(gEdit, pos.x, pos.y)) {
+        renderEdit(gEdit)
+        return
+    }
+
     if (updateEmojiDrag(gEdit, pos.x, pos.y)) {
         renderEdit(gEdit)
     }
 }
 
 function onMouseUp(event) {
+    if (stopTextDrag(gEdit)) {
+
+    }
+
     if (stopEmojiDrag(gEdit)) {
-        // Optional: Could save state here
+
     }
 }
 

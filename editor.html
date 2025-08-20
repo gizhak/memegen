@@ -33,44 +33,47 @@
                     <div class="main-setting">
                         <!-- <label for="text-line">Text line</label>
                         <input class="canvas-text" type="text" id="text-line" required name="text-line" /> -->
-                        <input class="canvas-text" type="text" placeholder="Type something and click enter" />
+                        <input class="canvas-text" type="text" placeholder="Type something and click + " />
                         <!-- <input type="color" id="colorPicker" style="display: none;"
                             onchange="onColorChange(this.value)"> -->
                         <div class="main-btn-continer">
-                            <button class="btnUp" onclick="onBtnUp()">
+                            <button class="btnUp" onclick="onBtnUp()" title="Navigate between texts">
                                 <i class="fa-solid fa-circle-up"></i>
                             </button>
-                            <button class="btnDown" onclick="onBtnDown()">
+                            <button class="btnDown" onclick="onBtnDown()" title="Navigate between texts">
                                 <i class="fa-solid fa-circle-down"></i>
                             </button>
 
-                            <button class="btnAddTextLine" onclick="onAddTextLine()">
+                            <button class="btnAddTextLine" onclick="onAddTextLine()" title="Add text">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
-                            <button class="btnDelTextLine" onclick="onDelTextLine()">
+                            <button class="btnDelTextLine" onclick="onDelTextLine()" title="Delete selected text">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
 
                         <div class="edit-btn-continer">
-                            <button class="btnIncreaseFontSize" onclick="onBtnIncreaseFontSize()">
+                            <button class="btnIncreaseFontSize" onclick="onBtnIncreaseFontSize()"
+                                title="Increase font size">
                                 <i class="fa-solid fa-font increase"></i>
                             </button>
-                            <button class="btnDecreaseFontSize" onclick="onBtnDecreaseFontSize()">
+                            <button class="btnDecreaseFontSize" onclick="onBtnDecreaseFontSize()"
+                                title="Decrease font size">
                                 <i class="fa-solid fa-font decrease"></i>
                             </button>
 
-                            <button class="btnAlignLeft" onclick="onBtnAlignLeft()">
+                            <button class="btnAlignLeft" onclick="onBtnAlignLeft()" title="Must be seletced text">
                                 <i class="fa-solid fa-align-left"></i>
                             </button>
-                            <button class="btnAlignCenter" onclick="onBtnAlignCenter()">
+                            <button class="btnAlignCenter" onclick="onBtnAlignCenter()" title="Must be seletced text">
                                 <i class="fa-solid fa-align-center"></i>
                             </button>
-                            <button class="btnAlignRight" onclick="onBtnAlignRight()">
+                            <button class="btnAlignRight" onclick="onBtnAlignRight()" title="Must be seletced text">
                                 <i class="fa-solid fa-align-right"></i>
                             </button>
 
-                            <select class="btnFontFamilySelector" onchange="onBtnFontFamilySelector(this.value)">
+                            <select class="btnFontFamilySelector" onchange="onBtnFontFamilySelector(this.value)"
+                                title="Must be seletced text">
                                 <option value="Impact">IMPACT</option>
                                 <option value="Arial">ARIAL</option>
                                 <option value="Times New Roman">TIMES</option>
@@ -78,7 +81,7 @@
                                 <option value="Helvetica">HELVETICA</option>
                                 <option value="Georgia">GEORGIA</option>
                             </select>
-                            <button class="btnUnderline" onclick="onBtnUnderline()">
+                            <button class="btnUnderline" onclick="onBtnUnderline()" title="Must be seletced text">
                                 <i class="fa-solid fa-underline"></i>
                             </button>
                             <div style="position: relative; display: inline-block;">
